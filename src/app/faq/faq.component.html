@@ -1,0 +1,377 @@
+<div class="container mb-3" style="margin-top: 100px">
+  <h1
+    class="mb-5 p-4 shadow bg-white rounded-3"
+    style="border-left: 10px solid green"
+    >
+    Frequently Asked Questions
+  </h1>
+  <div class="row">
+    <section class="col-12 col-lg-4">
+      <article
+        class="bg-white p-4 shadow rounded-3"
+        style="border-top: 15px solid green"
+        >
+        <h2>Do you have any <span class="text-success">questions?</span></h2>
+        <p style="max-width: 700px" class="mt-4">
+          Please read questions bellow and if you can not find your answer,
+          please send us your question, we will answer you as soon as possible.
+        </p>
+      </article>
+    </section>
+    <!-- For Students -->
+    @if (isStudentLogin) {
+      <section class="mt-4 col-12 col-lg-8 mt-lg-0">
+        <div class="bg-white rounded-3 p-4 shadow">
+          <!-- Question 1 -->
+          <article>
+            <button
+              class="collapseBtn btn activeBtn border-2 mb-1 border d-flex justify-content-between fs-5 py-3 w-100 text-start rounded-bottom-0"
+              type="button"
+              id="b1Student"
+              (click)="rotateIcon('b1Student')"
+              data-bs-toggle="collapse"
+              data-bs-target="#q1-student"
+              aria-expanded="false"
+              aria-controls="q1-student"
+              >
+              How do I start an exam?
+              <span><i class="fa-solid fa-chevron-down rotateIcon"></i></span>
+            </button>
+            <div class="collapse show" id="q1-student">
+              <div class="card card-body rounded-top-0">
+                After logging in, go to the "Exams" page. You'll find a list of
+                available exams there. Click on "Start Exam" next to the exam you
+                want to take, and the timer will automatically begin when the exam
+                starts.
+              </div>
+            </div>
+          </article>
+          <!-- Question 2 -->
+          <article class="mt-3">
+            <button
+              class="collapseBtn btn border-2 mb-1 border d-flex justify-content-between fs-5 py-3 w-100 text-start rounded-bottom-0"
+              type="button"
+              id="b2Student"
+              (click)="rotateIcon('b2Student')"
+              data-bs-toggle="collapse"
+              data-bs-target="#q2-student"
+              aria-expanded="false"
+              aria-controls="q2-student"
+              >
+              Can I review the exams I’ve completed?
+              <span><i class="fa-solid fa-chevron-down"></i></span>
+            </button>
+            <div class="collapse" id="q2-student">
+              <div class="card card-body rounded-top-0">
+                Yes, you can visit your "Account" page, where you'll find a table
+                with all the exams you've taken, along with your results.
+              </div>
+            </div>
+          </article>
+          <!-- Question 3 -->
+          <article class="mt-3">
+            <button
+              class="collapseBtn btn border-2 mb-1 border d-flex justify-content-between fs-5 py-3 w-100 text-start rounded-bottom-0"
+              type="button"
+              id="b3Student"
+              (click)="rotateIcon('b3Student')"
+              data-bs-toggle="collapse"
+              data-bs-target="#q3-student"
+              aria-expanded="false"
+              aria-controls="q3-student"
+              >
+              What happens if time runs out before I finish the exam?
+              <span><i class="fa-solid fa-chevron-down"></i></span>
+            </button>
+            <div class="collapse" id="q3-student">
+              <div class="card card-body rounded-top-0">
+                The exam will automatically submit when the time is up, and your
+                answers will be sent for evaluation. Your result will be displayed
+                immediately afterward.
+              </div>
+            </div>
+          </article>
+          <!-- Question 4 -->
+          <article class="mt-3">
+            <button
+              class="collapseBtn btn border-2 mb-1 border d-flex justify-content-between fs-5 py-3 w-100 text-start rounded-bottom-0"
+              type="button"
+              id="b4Student"
+              (click)="rotateIcon('b4Student')"
+              data-bs-toggle="collapse"
+              data-bs-target="#q4-student"
+              aria-expanded="false"
+              aria-controls="q4-student"
+              >
+              Can I retake an exam?
+              <span><i class="fa-solid fa-chevron-down"></i></span>
+            </button>
+            <div class="collapse" id="q4-student">
+              <div class="card card-body rounded-top-0">
+                This depends on the exam settings chosen by your instructor. If
+                the exam allows for retakes, you’ll see an option to retake the
+                exam on the "Exams" page.
+              </div>
+            </div>
+          </article>
+          <!-- Question 5 -->
+          <article class="mt-3">
+            <button
+              class="collapseBtn btn border-2 mb-1 border d-flex justify-content-between fs-5 py-3 w-100 text-start rounded-bottom-0"
+              type="button"
+              id="b5Student"
+              (click)="rotateIcon('b5Student')"
+              data-bs-toggle="collapse"
+              data-bs-target="#q5-student"
+              aria-expanded="false"
+              aria-controls="q5-student"
+              >
+              How can I get support if I encounter an issue?
+              <span><i class="fa-solid fa-chevron-down"></i></span>
+            </button>
+            <div class="collapse" id="q5-student">
+              <div class="card card-body rounded-top-0">
+                If you face any technical problems or have questions, you can
+                visit the "Support" page to contact the help desk.
+              </div>
+            </div>
+          </article>
+          <!-- Question 6 -->
+          <article class="mt-3">
+            <button
+              class="collapseBtn btn border-2 mb-1 border d-flex justify-content-between fs-5 py-3 w-100 text-start rounded-bottom-0"
+              type="button"
+              id="b6Student"
+              (click)="rotateIcon('b6Student')"
+              data-bs-toggle="collapse"
+              data-bs-target="#q6-student"
+              aria-expanded="false"
+              aria-controls="q6-student"
+              >
+              How can I change my password?
+              <span><i class="fa-solid fa-chevron-down"></i></span>
+            </button>
+            <div class="collapse" id="q6-student">
+              <div class="card card-body rounded-top-0">
+                Go to the "Account" page and click "Update Profile." You’ll find
+                an option to change your password. Make sure to enter the new
+                password and save the changes.
+              </div>
+            </div>
+          </article>
+          <!-- Question 7 -->
+          <article class="mt-3">
+            <button
+              class="collapseBtn btn border-2 mb-1 border d-flex justify-content-between fs-5 py-3 w-100 text-start rounded-bottom-0"
+              type="button"
+              id="b7Student"
+              (click)="rotateIcon('b7Student')"
+              data-bs-toggle="collapse"
+              data-bs-target="#q7-student"
+              aria-expanded="false"
+              aria-controls="q7-student"
+              >
+              What browsers are supported?
+              <span><i class="fa-solid fa-chevron-down"></i></span>
+            </button>
+            <div class="collapse" id="q7-student">
+              <div class="card card-body rounded-top-0">
+                The website supports the latest versions of Chrome, Firefox,
+                Safari, and Edge to ensure the best experience.
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+    }
+    <!-- For Instructors -->
+    @if (!isStudentLogin) {
+      <section class="mt-4 col-12 col-lg-8 mt-lg-0">
+        <div class="bg-white rounded-3 p-4 shadow">
+          <!-- Question 1 -->
+          <article>
+            <button
+              class="collapseBtn btn activeBtn border-2 mb-1 border d-flex justify-content-between fs-5 py-3 w-100 text-start rounded-bottom-0"
+              type="button"
+              id="b1Inst"
+              (click)="rotateIcon('b1Inst')"
+              data-bs-toggle="collapse"
+              data-bs-target="#q1"
+              aria-expanded="false"
+              aria-controls="collapseExample"
+              >
+              How do I create a new exam?
+              <span><i class="fa-solid fa-chevron-down rotateIcon"></i></span>
+            </button>
+            <div class="collapse show" id="q1">
+              <div class="card card-body rounded-top-0">
+                Go to the "Create Exam" page from the navigation bar. Enter the
+                exam name, questions, and answer options. You can also set a timer
+                for the exam and choose the start and end time.
+              </div>
+            </div>
+          </article>
+          <!-- Question 2 -->
+          <article class="mt-3">
+            <button
+              class="collapseBtn btn border-2 mb-1 border d-flex justify-content-between fs-5 py-3 w-100 text-start rounded-bottom-0"
+              type="button"
+              id="b2Inst"
+              (click)="rotateIcon('b2Inst')"
+              data-bs-toggle="collapse"
+              data-bs-target="#q2"
+              aria-expanded="false"
+              aria-controls="collapseExample"
+              >
+              How do I publish the exam for students?
+              <span><i class="fa-solid fa-chevron-down"></i></span>
+            </button>
+            <div class="collapse" id="q2">
+              <div class="card card-body rounded-top-0">
+                After creating the exam, you can click "Publish Exam," and it will
+                automatically be added to the "Exams" page, where students can
+                access and take it.
+              </div>
+            </div>
+          </article>
+          <!-- Question 3 -->
+          <article class="mt-3">
+            <button
+              class="collapseBtn btn border-2 mb-1 border d-flex justify-content-between fs-5 py-3 w-100 text-start rounded-bottom-0"
+              type="button"
+              id="b3Inst"
+              (click)="rotateIcon('b3Inst')"
+              data-bs-toggle="collapse"
+              data-bs-target="#q3"
+              aria-expanded="false"
+              aria-controls="collapseExample"
+              >
+              How can I track student performance?
+              <span><i class="fa-solid fa-chevron-down"></i></span>
+            </button>
+            <div class="collapse" id="q3">
+              <div class="card card-body rounded-top-0">
+                You can visit the "Students" page to view each student's
+                performance on the exams they’ve taken. You’ll find statistics on
+                their scores and the time taken to answer each exam.
+              </div>
+            </div>
+          </article>
+          <!-- Question 4 -->
+          <article class="mt-3">
+            <button
+              class="collapseBtn btn border-2 mb-1 border d-flex justify-content-between fs-5 py-3 w-100 text-start rounded-bottom-0"
+              type="button"
+              id="b4Inst"
+              (click)="rotateIcon('b4Inst')"
+              data-bs-toggle="collapse"
+              data-bs-target="#q4"
+              aria-expanded="false"
+              aria-controls="collapseExample"
+              >
+              Can I edit exams after publishing them?
+              <span><i class="fa-solid fa-chevron-down"></i></span>
+            </button>
+            <div class="collapse" id="q4">
+              <div class="card card-body rounded-top-0">
+                Yes, you can edit it by pressing the "Update" button, then you can
+                change what you want.
+              </div>
+            </div>
+          </article>
+          <!-- Question 5 -->
+          <article class="mt-3">
+            <button
+              class="collapseBtn btn border-2 mb-1 border d-flex justify-content-between fs-5 py-3 w-100 text-start rounded-bottom-0"
+              type="button"
+              id="b5Inst"
+              (click)="rotateIcon('b5Inst')"
+              data-bs-toggle="collapse"
+              data-bs-target="#q5-inst"
+              aria-expanded="false"
+              aria-controls="collapseExample"
+              >
+              How can I get support if I encounter an issue?
+              <span><i class="fa-solid fa-chevron-down"></i></span>
+            </button>
+            <div class="collapse" id="q5-inst">
+              <div class="card card-body rounded-top-0">
+                If you face any technical problems or have questions, you can
+                visit the "Support" page to contact the help desk.
+              </div>
+            </div>
+          </article>
+          <!-- Question 6 -->
+          <article class="mt-3">
+            <button
+              class="collapseBtn btn border-2 mb-1 border d-flex justify-content-between fs-5 py-3 w-100 text-start rounded-bottom-0"
+              type="button"
+              id="b6Inst"
+              (click)="rotateIcon('b6Inst')"
+              data-bs-toggle="collapse"
+              data-bs-target="#q6-inst"
+              aria-expanded="false"
+              aria-controls="q6-inst"
+              >
+              How can I change my password?
+              <span><i class="fa-solid fa-chevron-down"></i></span>
+            </button>
+            <div class="collapse" id="q6-inst">
+              <div class="card card-body rounded-top-0">
+                Go to the "Account" page and click "Update Profile." You’ll find
+                an option to change your password. Make sure to enter the new
+                password and save the changes.
+              </div>
+            </div>
+          </article>
+          <!-- Question 7 -->
+          <article class="mt-3">
+            <button
+              class="collapseBtn btn border-2 mb-1 border d-flex justify-content-between fs-5 py-3 w-100 text-start rounded-bottom-0"
+              type="button"
+              id="b7Inst"
+              (click)="rotateIcon('b7Inst')"
+              data-bs-toggle="collapse"
+              data-bs-target="#q7-inst"
+              aria-expanded="false"
+              aria-controls="q7-inst"
+              >
+              What browsers are supported?
+              <span><i class="fa-solid fa-chevron-down"></i></span>
+            </button>
+            <div class="collapse" id="q7-inst">
+              <div class="card card-body rounded-top-0">
+                The website supports the latest versions of Chrome, Firefox,
+                Safari, and Edge to ensure the best experience.
+              </div>
+            </div>
+          </article>
+          <!-- Question 8 -->
+          <article class="mt-3">
+            <button
+              class="collapseBtn btn border-2 mb-1 border d-flex justify-content-between fs-5 py-3 w-100 text-start rounded-bottom-0"
+              type="button"
+              id="b8Inst"
+              (click)="rotateIcon('b8Inst')"
+              data-bs-toggle="collapse"
+              data-bs-target="#q8-inst"
+              aria-expanded="false"
+              aria-controls="q8-inst"
+              >
+              Can I recover deleted exams?
+              <span><i class="fa-solid fa-chevron-down"></i></span>
+            </button>
+            <div class="collapse" id="q8-inst">
+              <div class="card card-body rounded-top-0">
+                Unfortunately, once an exam is deleted, it cannot be restored.
+                Make sure to carefully review any decisions before deleting an
+                exam.
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+    }
+  </div>
+</div>
+

@@ -1,0 +1,54 @@
+<section class="container" style="margin-top: 100px">
+  <h1
+    class="mb-4 p-4 bg-white rounded-3 shadow"
+    style="border-left: 10px solid green"
+  >
+    Responses ( {{ responses ? responses.length : 0 }} )
+  </h1>
+  @if (responses && responses.length !== 0) {
+  <h3
+    style="border-top: 10px solid green"
+    class="bg-white fs-3 p-3 shadow mt-5 fw-bold rounded-3 mb-2 text-center"
+  >
+    Responses of
+    {{ examName }}
+  </h3>
+  <div  class="table-content">
+    <table class="table shadow">
+      <thead>
+        <tr>
+          <th class="p-3 border bg-success-subtle fs-5">ID</th>
+          <th class="p-3 border bg-success-subtle fs-5">Name</th>
+          <th class="p-3 border bg-success-subtle fs-5">Score</th>
+          <th class="p-3 border bg-success-subtle fs-5">Completed Date</th>
+          <th class="p-3 border bg-success-subtle fs-5">Grade</th>
+          <th class="p-3 border bg-success-subtle fs-5">Answers</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (res of responses; track res; let i = $index) {
+        <tr>
+          <td class="p-3 border">{{ res.id }}</td>
+          <td class="p-3 border">{{ res.name }}</td>
+          <td class="p-3 border">{{ res.score }}</td>
+          <td class="p-3 border">{{ res.completedDate }}</td>
+          <td class="p-3 border">{{ res.grade }}</td>
+          <td class="p-3 border">
+            <button
+              class="btn btn-success"
+              (click)="changeStdIdNumber(i, examName)"
+            >
+              Answers
+            </button>
+          </td>
+        </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+  } @else {
+  <h2 class="pageTitle text-center" style="font-size: 60px; margin-top: 150px">
+    No responses found!
+  </h2>
+  }
+</section>

@@ -1,0 +1,148 @@
+<div class="container" style="margin-top: 100px">
+  <h3 class="disTitle bg-white rounded-3 p-3 my-0 rounded-bottom-0">
+    <div class="d-flex justify-content-between align-items-center">
+      <div class="col-10">
+        <img
+          src="../../assets/images/bg-discussion.jpg"
+          alt="Discussion Logo"
+          />
+          <span class="ms-2">Discussion Group</span>
+        </div>
+        <div id="infoDiscussion" class="w-fit me-4 position-relative p-0">
+          <button
+            class="border-0"
+            data-bs-toggle="modal"
+            data-bs-target="#aboutDiscussion"
+            >
+            <i class="fa-solid fa-circle-info"></i>
+          </button>
+        </div>
+      </div>
+    </h3>
+    <!-- Modal -->
+    <div
+      class="modal fade"
+      id="aboutDiscussion"
+      tabindex="-1"
+      aria-labelledby="staticBackdropLabel"
+      aria-hidden="true"
+      >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-4 fw-bold" id="staticBackdropLabel">
+              About Discussion
+            </h1>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body fs-5">
+            The discussion group is a an online group where students and
+            instructors can communicate with each other and discuss matters
+            related to study or exams.
+          </div>
+          <div class="modal-footer me-auto">
+            <button type="button" data-bs-dismiss="modal" class="btn btn-primary">
+              Got it
+            </button>
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+              >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <section #discussionContainer class="mb-0 bg-white shadow p-1">
+      <div class="testing">
+        <!-- Display messages -->
+        <article class="messages py-3" [class.p-5]="messages.length === 0">
+          @for (message of messages; track message; let i = $index) {
+            <div>
+              <div
+                [class.ms-auto]="checkName(i)"
+                [class.currentUser]="!checkName(i)"
+                [class.anotherUser]="checkName(i)"
+                class="message border m-3 bg-body-secondary position-relative p-3 w-fit rounded-3"
+                >
+                <figure class="w-fit p-0" [class.ms-auto]="checkName(i)">
+                  @if (!checkName(i)) {
+                    <img
+                      [src]="message.img"
+                      alt="Prfile Photo"
+                      title="Prfile Photo"
+                      />
+                  }
+                  <strong
+                    class="position-relative"
+                    [class.me-2]="checkName(i)"
+                    [class.ms-2]="!checkName(i)"
+                    >
+                    {{ message.user }}
+                    <span
+                      class="position-absolute fw-normal text-black-50 text-center w-100 top-100 start-50 translate-middle-x"
+                      >
+                      ( {{ message.status }} )</span
+                      >
+                    </strong>
+                    @if (checkName(i)) {
+                      <img
+                        [src]="message.img"
+                        alt="Prfile Photo"
+                        title="Prfile Photo"
+                        />
+                    }
+                  </figure>
+                  <p
+                    [class.currentUser]="!checkName(i)"
+                    [class.anotherUser]="checkName(i)"
+                    [class.ms-3]="!checkName(i)"
+                    [class.me-3]="checkName(i)"
+                    class="p-2 rounded-2 bg-white border border-black mb-1 my-0 mt-4"
+                    style="max-width: 400px"
+                    >
+                    {{ message.text }}
+                  </p>
+                  <span class="position-absolute" style="right: 10px">
+                    {{ message.time }}</span
+                    >
+                  </div>
+                </div>
+              }
+            </article>
+          </div>
+        </section>
+        <!-- Form to send a new message -->
+        <form (ngSubmit)="sendMessage()" class="bg-white mb-4 p-4">
+          <div class="input-group">
+            <input
+              autofocus
+              type="text"
+              [(ngModel)]="newMessage"
+              placeholder="Type your message..."
+              name="message"
+              class="form-control shadow-none p-2"
+              required
+              />
+              <button type="submit" (click)="scrollBottom()" class="btn btn-primary">
+                Send
+              </button>
+            </div>
+          </form>
+          @if (scrolled) {
+            <button
+              (click)="scrollBottom()"
+              class="btn btn-info text-white fs-5 start-50 translate-middle-x rounded-circle position-fixed"
+              style="bottom: 100px; z-index: 10"
+              >
+              <i class="fa-solid fa-chevron-down"></i>
+            </button>
+          }
+        </div>

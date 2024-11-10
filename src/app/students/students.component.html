@@ -1,0 +1,41 @@
+<!-- <div class="container" style="margin-top: 100px">
+  <h1
+    *ngIf="students.length === 0 || students === undefined"
+    class="text-center"
+    style="font-size: 60px; padding-top: 100px"
+  >
+    No students found!
+  </h1>
+  <div
+    class="table-content"
+    *ngIf="students.length > 0 && students !== undefined"
+  >
+    <table class="table">
+      <thead>
+        <tr>
+          <th class="text-bg-success fs-5 border p-3">Id</th>
+          <th class="text-bg-success fs-5 border p-3">Name</th>
+          <th class="text-bg-success fs-5 border p-3">Exams Done</th>
+          <th class="text-bg-success fs-5 border p-3">Number of exams</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let res of students">
+          <td class="border p-3">{{ res.id }}</td>
+          <td class="border p-3">{{ res.fname + " " + res.lname }}</td>
+          <td class="border p-3">
+            <ng-container *ngIf="res.exams.length === 0">
+              <span>--</span>
+            </ng-container>
+            <ng-container *ngIf="res.exams.length > 0">
+              <span *ngFor="let exam of res.exams; let i = index">
+                {{ exam }}<span *ngIf="i < res.exams.length - 1">, </span>
+              </span>
+            </ng-container>
+          </td>
+          <td class="border p-3">{{ res.exams.length }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div> -->

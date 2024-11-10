@@ -1,0 +1,92 @@
+<div class="container mb-4" style="margin-top: 100px">
+  <h1
+    class="mb-4 p-4 bg-white rounded-3 shadow"
+    style="border-left: 10px solid green"
+  >
+    Notifications
+  </h1>
+  @if (loginedUser.notifications.length === 0) {
+  <h2 style="margin-top: 100px; font-size: 60px" class="text-center">
+    No notifications found
+  </h2>
+  } @else {
+  <section>
+    <!-- Buttons -->
+    <div class="btns mt-5 row rounded-3">
+      <ul class="nav nav-tabs col-8 ps-3" id="myTab" role="tablist">
+        <!-- All button -->
+        <li class="nav-item" role="presentation">
+          <button
+            class="active btn py-2 fw-medium px-3 bg-body-tertiary"
+            id="all-tab"
+            data-bs-toggle="tab"
+            data-bs-target="#all-tab-pane"
+            type="button"
+            role="tab"
+            aria-controls="all-tab-pane"
+            aria-selected="true"
+          >
+            All
+          </button>
+        </li>
+        <!-- Show unread button -->
+        <li class="nav-item" role="presentation">
+          <button
+            class="btn py-2 px-3 fw-medium bg-body-tertiary ms-2"
+            id="unreaded-tab"
+            data-bs-toggle="tab"
+            data-bs-target="#unreaded-tab-pane"
+            type="button"
+            role="tab"
+            aria-controls="unreaded-tap-pane"
+            aria-selected="false"
+          >
+            Show Unread
+          </button>
+        </li>
+      </ul>
+      <!-- Mark all as read button -->
+      <div class="text-end col-4">
+        <button class="btn py-2 px-3 btn-secondary" (click)="markAllAsRead()">
+          Mark all as read
+        </button>
+      </div>
+    </div>
+    <!-- Tab content -->
+    <div class="tab-content" id="myTabContent">
+      <!-- All -->
+      <div
+        class="tab-pane fade show active fs-5"
+        id="all-tab-pane"
+        role="tabpanel"
+        aria-labelledby="all-tab"
+        tabindex="0"
+      >
+        @for (not of loginedUser.notifications; track $index) {
+        <div
+          class="unread bg-white p-4 rounded-3 mt-4 shadow-lg"
+          [class.unread]="!not.readed"
+          [innerHTML]="not.message"
+        ></div>
+        }
+      </div>
+      <!-- Unreaded -->
+      <div
+        class="tab-pane fade fs-5"
+        id="unreaded-tab-pane"
+        role="tabpanel"
+        aria-labelledby="unreaded-tab"
+        tabindex="0"
+      >
+        @for (not of loginedUser.notifications; track $index) { @if
+        (!not.readed) {
+        <div
+          class="unread bg-white p-4 rounded-3 mt-4 shadow-lg"
+          [innerHTML]="not.message"
+        ></div>
+        } }
+      </div>
+    </div>
+  </section>
+  }
+</div>

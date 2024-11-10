@@ -1,0 +1,96 @@
+.disTitle {
+  position: sticky;
+  top: 78px;
+  left: 0;
+  width: 100%;
+  z-index: 5;
+}
+
+form {
+  position: sticky;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 5;
+}
+
+.testing {
+  background-image: linear-gradient(
+      to right,
+      rgba(0, 0, 0, 0.3),
+      rgba(0, 0, 0, 0.3)
+    ),
+    url(../../../public/assets/images/business-people-meeting-conference-discussion-corporate-concept-76391133.webp);
+  background-position: center;
+  background-repeat: repeat-y;
+  background-size: 100%;
+  background-attachment: fixed;
+  min-height: 500px;
+}
+
+.messages .message {
+  padding-bottom: 30px !important;
+  max-width: 300px;
+}
+
+.disTitle img,
+.messages figure img {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+}
+
+.currentUser {
+  border-top-left-radius: 0px !important;
+}
+
+.anotherUser {
+  border-top-right-radius: 0px !important;
+}
+
+#infoDiscussion:hover {
+  cursor: pointer;
+}
+
+#infoDiscussion::after {
+  content: "";
+  position: absolute;
+  left: -14px;
+  top: 40%;
+  width: 10px;
+  height: 10px;
+  transform: rotate(45deg);
+  background-color: teal;
+  opacity: 0;
+}
+
+#infoDiscussion::before {
+  content: "About Discussion";
+  position: absolute;
+  background-color: teal;
+  color: #fff;
+  padding: 10px;
+  border-radius: 5px;
+  top: 50%;
+  left: -160px;
+  transform: translateY(-50%);
+  width: 150px;
+  font-size: 16px;
+  opacity: 0;
+  transition: all 0.2s linear 0s;
+}
+
+.modal-backdrop {
+  background-color: rgba(0, 0, 0, 0.2) !important; /* Lighter backdrop */
+}
+
+#infoDiscussion:hover::after,
+#infoDiscussion:hover::before {
+  opacity: 1;
+}
+
+@media (width >= 764px) {
+  .messages .message {
+    max-width: fit-content;
+  }
+}

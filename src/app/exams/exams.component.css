@@ -1,0 +1,30 @@
+h2.pageTitle {
+  font-size: 60px;
+  margin-top: 100px;
+}
+
+.showData .content {
+  border-top: 10px solid var(--blue);
+}
+
+.showData .content.solved {
+  border-top: 10px solid green;
+}
+
+.nav-tabs li button {
+  color: var(--black);
+  font-weight: 600;
+  padding: 10px 20px;
+}
+
+.nav-tabs li button.active {
+  background-color: #08f;
+  border-radius: 5px;
+  color: var(--white);
+}
+
+@media ((width >= 992px) and (width < 1200px)) {
+  .changeSize {
+    width: calc(95% / 2) !important;
+  }
+}

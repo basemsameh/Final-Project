@@ -1,0 +1,28 @@
+.unread {
+  position: relative;
+  background-color: #eff !important;
+  border-left: 10px solid #08f;
+}
+
+.unread::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 20px;
+  height: 15px;
+  width: 15px;
+  background-color: #08f;
+  border-radius: 50%;
+  transition: all 0.2s linear 0s;
+}
+
+.nav-item .btn.active {
+  background-color: #08f !important;
+  border-radius: 5px;
+  color: #fff !important;
+}
+
+.d-none {
+  display: none !important;
+}

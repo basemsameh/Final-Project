@@ -1,0 +1,47 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  transition: 0.2s linear 0s;
+}
+
+:root {
+  --blue: #4285f4;
+  --white: #fff;
+  --black: #000;
+  --bg-color: #d0e1fc;
+}
+
+.w-fit {
+  width: fit-content;
+}
+
+.free-course {
+  background-color: rgb(0, 128, 0, 0.2);
+  color: green;
+  width: fit-content;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+.course-category {
+  background-color: rgb(0, 136, 255, 0.2);
+  color: #08f;
+  font-weight: bold;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+
+  body {
+    font-size: 12pt !important;
+  }
+
+  .container {
+    width: 100% !important;
+  }
+}

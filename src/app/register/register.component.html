@@ -1,0 +1,274 @@
+<div class="container" style="margin-top: 100px">
+  <form
+    action="#"
+    style="border-top: 15px solid green;max-width: 900px;"
+    class="shadow p-4 p-md-5 mx-auto bg-white rounded-3 mb-4"
+    [formGroup]="registerForm"
+  >
+    <h1 class="fst-italic mb-5">Registration Form</h1>
+    <div class="row">
+      <!-- First Name -->
+      <article class="col-12 col-md-6 col-lg-4">
+        <label for="fname" class="form-label">First Name</label>
+        <input
+          type="text"
+          class="form-control shadow-none"
+          formControlName="fname"
+          name="fname"
+          id="fname"
+          autocomplete="name"
+        />
+        @if ( registerForm.controls.fname.touched &&
+        registerForm.controls.fname.invalid ) {
+        <div class="alert alert-danger mt-2" role="alert">
+          @if (registerForm.controls.fname.value === null) {
+          <span>You should enter your first name.</span>
+          } @else {
+          <span>The first name should have at least be 3 characters.</span>
+          }
+        </div>
+        }
+      </article>
+      <!-- Last Name -->
+      <article class="col-12 col-md-6 col-lg-4 mt-4 mt-md-0">
+        <label for="lname" class="form-label">Last Name</label>
+        <input
+          type="text"
+          class="form-control shadow-none"
+          formControlName="lname"
+          name="lname"
+          id="lname"
+          autocomplete="name"
+        />
+        @if ( registerForm.controls.lname.touched &&
+        registerForm.controls.lname.invalid ) {
+        <div class="alert alert-danger mt-2" role="alert">
+          @if (registerForm.controls.lname.value === null) {
+          <span>You should enter your last name.</span>
+          } @else {
+          <span>The last name should have at least be 3 characters.</span>
+          }
+        </div>
+        }
+      </article>
+      <!-- Birthdate -->
+      <article class="col-12 col-md-6 col-lg-4 mt-4 mt-lg-0">
+        <label for="birthdate" class="form-label">Birthdate</label>
+        <input
+          type="text"
+          class="form-control shadow-none"
+          formControlName="birthdate"
+          name="birthdate"
+          id="birthdate"
+          placeholder="Ex: 09/05/2000"
+        />
+        @if ( registerForm.controls.birthdate.touched &&
+        registerForm.controls.birthdate.invalid ) {
+        <div class="alert alert-danger mt-2" role="alert">
+          @if (registerForm.controls.birthdate.value === null) {
+          <span>You should enter your birthdate.</span>
+          } @else {
+          <span> Please enter a valid birthdate in DD/MM/YYYY format.</span>
+          }
+        </div>
+        }
+      </article>
+      <!-- Email -->
+      <article class="col-12 col-md-6 mt-4">
+        <label for="email" class="form-label">Email</label>
+        <input
+          type="email"
+          class="form-control shadow-none"
+          formControlName="email"
+          name="email"
+          id="email"
+          autocomplete="email"
+        />
+        @if ( registerForm.controls.email.touched &&
+        registerForm.controls.email.invalid ) {
+        <div class="alert alert-danger mt-2" role="alert">
+          @if (registerForm.controls.email.value === null) {
+          <span>You should enter your email.</span>
+          } @else {
+          <span>You should enter a valid email.</span>
+          }
+        </div>
+        }
+      </article>
+      <!-- Gender -->
+      <article class="gender mt-4 col-12 col-md-6 col-lg-3">
+        <label for="gender" class="form-label">Gender</label>
+        <select
+          name="gender"
+          id="gender"
+          formControlName="gender"
+          class="form-select shadow-none"
+          autocomplete="gender"
+        >
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+        </select>
+        @if ( registerForm.controls.isStudent.touched &&
+        registerForm.controls.isStudent.invalid ) {
+        <div class="alert alert-danger mt-2" role="alert">
+          You should select your gender.
+        </div>
+        }
+      </article>
+      <!-- Phone Number -->
+      <article class="mt-4 col-12 col-md-6 col-lg-3">
+        <label for="phone" class="form-label">Phone Number</label>
+        <input
+          name="phone"
+          id="phone"
+          type="tel"
+          formControlName="phoneNum"
+          autocomplete="tel"
+          class="form-control shadow-none"
+        />
+        @if ( registerForm.controls.phoneNum.touched &&
+        registerForm.controls.phoneNum.invalid ) {
+        <div class="alert alert-danger mt-2" role="alert">
+          @if (registerForm.controls.phoneNum.value === null) {
+          <span> Phone number should not be empty.</span>
+          } @else {
+          <span> Phone number should be 11 numbers.</span>
+          }
+        </div>
+        }
+      </article>
+      <!-- Password -->
+      <article class="mt-4 col-12 col-md-6">
+        <label for="password" class="form-label">Password</label>
+        <div class="input-group">
+          <input
+            type="password"
+            class="form-control shadow-none"
+            formControlName="password"
+            name="password"
+            id="password"
+            autocomplete="current-password"
+            #passInput1
+          />
+          <button
+            class="btn btn-outline-secondary border border-start-0"
+            type="button"
+            #eyeOne
+            (click)="toggleEye(eyeOne, passInput1)"
+          >
+            <i class="fa-solid fa-eye-slash"></i>
+          </button>
+        </div>
+        @if ( registerForm.controls.password.touched &&
+        registerForm.controls.password.invalid ) {
+        <div class="alert alert-danger mt-2" role="alert">
+          @if (registerForm.controls.password.value === null) {
+          <span>You should enter password.</span>
+          } @else {
+          <span
+            >Password should include capital, small letters and special
+            charcters. At least 8 characters</span
+          >
+          }
+        </div>
+        }
+      </article>
+      <!-- Confirm Password -->
+      <article class="mt-4 col-12 col-md-6">
+        <label for="confirmPass" class="form-label">Confirm Password</label>
+        <div class="input-group">
+          <input
+            type="password"
+            class="form-control shadow-none"
+            formControlName="confirmPass"
+            name="confirmPass"
+            id="confirmPass"
+            autocomplete="current-password"
+            #passInput2
+          />
+          <button
+            class="btn btn-outline-secondary border-start-0 border"
+            type="button"
+            #eyeTwo
+            (click)="toggleEye(eyeTwo, passInput2)"
+          >
+            <i class="fa-solid fa-eye-slash"></i>
+          </button>
+        </div>
+        @if ( registerForm.controls.confirmPass.touched &&
+        registerForm.controls.confirmPass.invalid &&
+        !checkSamePassword(passInput1, passInput2) ) {
+        <div class="alert alert-danger mt-2" role="alert">
+          <span>The password does not match!</span>
+        </div>
+        }
+      </article>
+      <!-- Student or Instructor -->
+      <article class="mt-4 col-12 col-md-6">
+        <label class="form-label fw-bold fs-5">You are:</label>
+        <br />
+        <!-- Student -->
+        <div class="input-group row align-items-center ps-3">
+          <div class="input-group-text col-2">
+            <input
+              type="radio"
+              name="isStudent"
+              value="student"
+              class="form-check-input shadow"
+              formControlName="isStudent"
+              id="student"
+            />
+          </div>
+          <div class="col-10 py-1 border d-flex align-items-end">
+            <label for="student">Student</label>
+          </div>
+        </div>
+        <!-- Instructor -->
+        <div class="input-group row align-items-center mt-2 ps-3">
+          <div class="input-group-text col-2">
+            <input
+              type="radio"
+              class="form-check-input shadow"
+              name="isStudent"
+              value="instructor"
+              formControlName="isStudent"
+              id="instructor"
+            />
+          </div>
+          <div class="col-10 py-1 border d-flex align-items-end">
+            <label for="instructor">Instructor</label>
+          </div>
+        </div>
+        @if ( registerForm.controls.isStudent.touched &&
+        registerForm.controls.isStudent.invalid ) {
+        <div class="alert alert-danger mt-2" role="alert">
+          You should choose student or instructor.
+        </div>
+        }
+      </article>
+    </div>
+    <!-- Submit -->
+    <button
+      type="submit"
+      class="btn btn-success mt-4 px-4"
+      (click)="submitData(registerForm); navigateToLogin()"
+      [disabled]="registerForm.invalid"
+    >
+      Submit
+    </button>
+    <p class="mt-3">
+      Already have an account?
+      <span
+        style="cursor: pointer"
+        class="text-primary text-decoration-underline"
+        (click)="navigateToLogin()"
+        >Login</span
+      >
+    </p>
+    @if (registerForm.invalid) {
+    <span class="alert alert-info d-block mt-3"
+      >You should complete and enter a valid data to submit 😊</span
+    >
+    }
+  </form>
+</div>

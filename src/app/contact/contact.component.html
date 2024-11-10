@@ -1,0 +1,234 @@
+<div class="container mb-4" style="margin-top: 100px">
+  <h1
+    class="mb-4 p-4 bg-white rounded-3 shadow"
+    style="border-left: 10px solid green"
+    >
+    Contact Us
+  </h1>
+  <!-- Form -->
+  <form
+    [formGroup]="contactForm"
+    (ngSubmit)="sendEmail()"
+    action="#"
+    class="shadow bg-white rounded-3 p-4 p-md-5"
+    style="border-left: 10px solid green"
+    >
+    <h2 class="mb-5 w-fit pb-2 border-black border-bottom">
+      Get in <span class="text-success">touch</span> with us
+    </h2>
+    <div class="row">
+      <!-- Name -->
+      <article class="col-12 col-md-6">
+        <label for="yourName" class="form-label">
+          Full Name ( <span class="text-danger">*</span> )
+        </label>
+        <input
+          type="text"
+          name="yourName"
+          id="yourName"
+          class="form-control shadow-none"
+          formControlName="name"
+          required
+          />
+          @if (
+            contactForm.controls.name.touched &&
+            contactForm.controls.name.invalid
+            ) {
+            <div
+              class="alert alert-danger mt-2"
+              role="alert"
+              >
+              @if (contactForm.controls.name.value === null) {
+                <span
+                  >You should enter your name.</span
+                  >
+              }
+              @if (contactForm.controls.name.value !== null) {
+                <span
+                  >Your name should have at least be 7 characters.</span
+                  >
+                }
+              </div>
+            }
+          </article>
+          <!-- Email -->
+          <article class="col-12 col-md-6 mt-4 mt-md-0">
+            <label for="email" class="form-label"
+              >Email ( <span class="text-danger">*</span> )</label
+              >
+              <input
+                type="email"
+                name="email"
+                id="email"
+                class="form-control shadow-none"
+                formControlName="email"
+                required
+                />
+                @if (
+                  contactForm.controls.email.touched &&
+                  contactForm.controls.email.invalid
+                  ) {
+                  <div
+                    class="alert alert-danger mt-2"
+                    role="alert"
+                    >
+                    @if (contactForm.controls.email.value === null) {
+                      <span
+                        >You should enter your email.</span
+                        >
+                    }
+                    @if (contactForm.controls.email.value !== null) {
+                      <span
+                        >Enter a valid email.</span
+                        >
+                      }
+                    </div>
+                  }
+                </article>
+                <!-- Subject -->
+                <article class="col-12 col-md-6 mt-4">
+                  <label for="subject" class="form-label"
+                    >Subject ( <span class="text-danger">*</span> )</label
+                    >
+                    <input
+                      type="text"
+                      name="subject"
+                      id="subject"
+                      formControlName="subject"
+                      class="form-control shadow-none"
+                      minlength="3"
+                      maxlength="20"
+                      required
+                      />
+                      @if (
+                        contactForm.controls.subject.touched &&
+                        contactForm.controls.subject.invalid
+                        ) {
+                        <div
+                          class="alert alert-danger mt-2"
+                          role="alert"
+                          >
+                          @if (contactForm.controls.subject.value === null) {
+                            <span
+                              >You should enter subject.</span
+                              >
+                          }
+                          @if (contactForm.controls.subject.value !== null) {
+                            <span
+                              >Subject should range between [3 to 20] characters.</span
+                              >
+                            }
+                          </div>
+                        }
+                      </article>
+                      <!-- Your Id -->
+                      <article class="col-12 col-md-6 mt-4">
+                        <label for="id" class="form-label"
+                          >Your ID ( <span class="text-danger">*</span> )</label
+                          >
+                          <input
+                            type="number"
+                            name="id"
+                            id="id"
+                            formControlName="id"
+                            class="form-control shadow-none"
+                            required
+                            />
+                            @if (
+                              contactForm.controls.id.touched && contactForm.controls.id.invalid
+                              ) {
+                              <div
+                                class="alert alert-danger mt-2"
+                                role="alert"
+                                >
+                                Enter a valid ID number.
+                              </div>
+                            }
+                          </article>
+                          <!-- Your Message -->
+                          <article class="col-12 col-md-6 mt-4">
+                            <label for="message" class="form-label"
+                              >Your Message ( <span class="text-danger">*</span> )</label
+                              >
+                              <textarea
+                                name="message"
+                                id="message"
+                                class="form-control"
+                                rows="5"
+                                formControlName="message"
+                                required
+                              ></textarea>
+                              @if (
+                                contactForm.controls.message.touched &&
+                                contactForm.controls.message.invalid
+                                ) {
+                                <div
+                                  class="alert alert-danger mt-2"
+                                  role="alert"
+                                  >
+                                  @if (contactForm.controls.message.value === null) {
+                                    <span
+                                      >You should enter message.</span
+                                      >
+                                  }
+                                  @if (contactForm.controls.message.value !== null) {
+                                    <span
+                                      >Message should have at least 3 characters.</span
+                                      >
+                                    }
+                                  </div>
+                                }
+                              </article>
+                            </div>
+                            <button
+                              data-bs-toggle="modal"
+                              data-bs-target="#messageSended"
+                              class="btn btn-success mt-4 px-4"
+                              style="font-weight: 600; height: 45px"
+                              [disabled]="contactForm.invalid"
+                              >
+                              Send Message
+                            </button>
+                            @if (contactForm.invalid) {
+                              <span class="alert alert-info d-block mt-3"
+                                >You should enter a valid data to send message 😊</span
+                                >
+                              }
+                              <!-- Modal -->
+                              <div
+                                class="modal fade"
+                                id="messageSended"
+                                tabindex="-1"
+                                aria-labelledby="exampleModalLabel"
+                                aria-hidden="true"
+                                >
+                                <div class="modal-dialog modal-dialog-centered">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <button
+                                        type="button"
+                                        class="btn-close"
+                                        data-bs-dismiss="modal"
+                                        aria-label="Close"
+                                        (click)="reloadPage()"
+                                      ></button>
+                                    </div>
+                                    <div class="modal-body text-center px-5 py-3" style="font-size: 80px">
+                                      <i class="fa-regular fa-circle-check text-success"></i>
+                                      <h3 class="text-black my-3">Message sended successfully</h3>
+                                    </div>
+                                    <div class="modal-footer">
+                                      <button
+                                        type="button"
+                                        class="btn btn-secondary mx-auto"
+                                        data-bs-dismiss="modal"
+                                        (click)="reloadPage()"
+                                        >
+                                        Close
+                                      </button>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </form>
+                          </div>

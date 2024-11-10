@@ -1,0 +1,318 @@
+<div class="container mb-4" style="margin-top: 100px">
+  <!-- Update Profile Section -->
+  <section
+    class="row bg-white p-4 py-5 rounded-4 shadow"
+    style="border-top: 15px solid green"
+    >
+    <!-- Profile Image -->
+    <figure
+      class="position-relative col-12 col-md-4 col-lg-3 pt-4 text-center px-5 pe-md-4 mb-5 mb-md-0 px-md-0"
+      >
+      @if (profileImageUrl !== '../../assets/images/account.png') {
+        <button
+          (click)="deletePhoto()"
+          id="removePhoto"
+          class="btn btn-outline-danger position-absolute top-0"
+          title="Remove Current Photo"
+          >
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      }
+      <img [src]="profileImageUrl" alt="Profile Image" class="rounded-circle" />
+      <h5 class="mt-4 text-black-50">ID: {{ loginedUser.id }}</h5>
+      <h4>{{ loginedUser.fname + " " + loginedUser.lname }}</h4>
+      <button class="btn btn-danger mt-4 px-4" (click)="logOut()">Log out</button>
+    </figure>
+    <!-- User Data -->
+    <form
+      action="#"
+      class="col-12 col-md-8 col-lg-9 pt-3 px-4"
+      [formGroup]="updateForm"
+      >
+      <h3 class="mb-4 w-fit border-bottom border-black pb-3">Update profile</h3>
+      <div class="row">
+        <!-- First Name -->
+        <article class="col-12 col-md-6">
+          <label for="fname" class="form-label">First Name</label>
+          <input
+            type="text"
+            id="fname"
+            name="fname"
+            class="form-control shadow-none"
+            formControlName="fname"
+            />
+          </article>
+          <!-- Last Name -->
+          <article class="col-12 col-md-6 mt-4 mt-md-0">
+            <label for="lname" class="form-label">Last Name</label>
+            <input
+              type="text"
+              id="lname"
+              name="lname"
+              class="form-control shadow-none"
+              formControlName="lname"
+              />
+            </article>
+            <!-- Eamil -->
+            <article class="col-12 col-md-8 col-lg-6 mt-4">
+              <label for="email" class="form-label">Email</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                class="form-control shadow-none"
+                formControlName="email"
+                />
+              </article>
+              <!-- Birthdate -->
+              <article class="col-12 col-md-4 col-lg-3 mt-4">
+                <label for="birthdate" class="form-label">Birthdate</label>
+                <input
+                  type="text"
+                  id="birthdate"
+                  name="birthdate"
+                  class="form-control shadow-none"
+                  formControlName="birthdate"
+                  />
+                </article>
+                <!-- Phone Number -->
+                <article class="col-12 col-md-4 col-lg-3 mt-4">
+                  <label for="phoneNum" class="form-label">Phone Number</label>
+                  <input
+                    type="number"
+                    id="phoneNum"
+                    name="phoneNum"
+                    class="form-control shadow-none"
+                    formControlName="phoneNum"
+                    />
+                  </article>
+                  <!-- Change Profile Photo -->
+                  <article class="col-12 col-lg-6 mt-4">
+                    <label for="photo" class="form-label">Change profile photo</label>
+                    <input
+                      type="file"
+                      id="photo"
+                      name="photo"
+                      class="form-control shadow-none"
+                      (change)="changePhoto($event)"
+                      />
+                    </article>
+                    <!-- Gender -->
+                    <article class="col-12 col-md-4 col-lg-3 mt-4">
+                      <label for="gender" class="form-label">Gender</label>
+                      <input
+                        type="text"
+                        readonly
+                        id="gender"
+                        name="gender"
+                        class="form-control shadow-none"
+                        [value]="loginedUser.gender"
+                        />
+                      </article>
+                      <!-- Status -->
+                      <article class="col-12 col-md-4 col-lg-3 mt-4">
+                        <label for="status" class="form-label">Status</label>
+                        <input
+                          type="text"
+                          readonly
+                          id="status"
+                          name="status"
+                          class="form-control shadow-none"
+                          [value]="loginedUser.status"
+                          />
+                        </article>
+                        <!-- Password -->
+                        <article class="col-12 col-md-6 mt-4">
+                          <label for="password" class="form-label">Password</label>
+                          <div class="input-group">
+                            <input
+                              type="password"
+                              readonly
+                              id="password"
+                              name="password"
+                              class="form-control shadow-none"
+                              formControlName="password"
+                              />
+                              <button
+                                class="btn btn-secondary position-relative resetPass"
+                                (click)="resetPassword(saveChangesBtn)"
+                                >
+                                <i class="fa-solid fa-arrows-rotate"></i>
+                              </button>
+                            </div>
+                          </article>
+                        </div>
+                        <!-- Reset Password Form -->
+                        @if (showResetPass) {
+                          <div class="row mt-5">
+                            <hr />
+                            <!-- New Password -->
+                            <h4 class="fw-bold mb-3">Reset Password</h4>
+                            <article class="col-12 col-md-6">
+                              <label for="newPassword" class="form-label">New Password</label>
+                              <div class="input-group">
+                                <input
+                                  type="password"
+                                  id="newPassword"
+                                  #newPassword
+                                  name="newPassword"
+                                  class="form-control shadow-none"
+                                  formControlName="newPassword"
+                                  />
+                                  <button
+                                    class="btn btn-secondary"
+                                    #newBtn
+                                    (click)="toggleEye(newBtn, newPassword)"
+                                    >
+                                    <i class="fa-solid fa-eye-slash"></i>
+                                  </button>
+                                </div>
+                              </article>
+                              <!-- Confirm Password -->
+                              <article class="col-12 col-md-6 mt-4 mt-md-0">
+                                <label for="confirmPass" class="form-label">Confirm Password</label>
+                                <div class="input-group">
+                                  <input
+                                    type="password"
+                                    id="confirmPass"
+                                    #confirmPass
+                                    name="confirmPass"
+                                    class="form-control shadow-none"
+                                    formControlName="confirmPass"
+                                    />
+                                    <button
+                                      class="btn btn-secondary"
+                                      #confBtn
+                                      (click)="toggleEye(confBtn, confirmPass)"
+                                      >
+                                      <i class="fa-solid fa-eye-slash"></i>
+                                    </button>
+                                  </div>
+                                </article>
+                              </div>
+                            }
+                            <button
+                              type="submit"
+                              #saveChangesBtn
+                              data-bs-toggle="modal"
+                              data-bs-target="#exampleModal"
+                              class="btn btn-success px-4 mt-4"
+                              style="font-weight: 600; height: 45px"
+                              [disabled]="updateForm.invalid"
+                              (click)="saveChanges()"
+                              >
+                              <i class="fa-regular fa-circle-check me-1"></i> Save Changes
+                            </button>
+                            <!-- Modal -->
+                            <div
+                              class="modal fade"
+                              id="exampleModal"
+                              tabindex="-1"
+                              aria-labelledby="exampleModalLabel"
+                              aria-hidden="true"
+                              >
+                              <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <button
+                                      type="button"
+                                      class="btn-close"
+                                      data-bs-dismiss="modal"
+                                      aria-label="Close"
+                                      (click)="reloadPage()"
+                                    ></button>
+                                  </div>
+                                  <div
+                                    class="modal-body text-center px-5 py-3"
+                                    style="font-size: 80px"
+                                    >
+                                    <i class="fa-regular fa-circle-check text-success"></i>
+                                    <h3 class="text-black my-3">
+                                      Profile information was updated successfully
+                                    </h3>
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button
+                                      type="button"
+                                      class="btn btn-secondary mx-auto"
+                                      data-bs-dismiss="modal"
+                                      (click)="reloadPage()"
+                                      >
+                                      Close
+                                    </button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </form>
+                        </section>
+                        <!-- Exams Section -->
+                        @if (loginedUser.status === 'student') {
+                          <section class="mt-5">
+                            @if (loginedUser.exams.length === 0) {
+                              <h2
+                                class="bg-white p-5 text-center rounded-3"
+                                >
+                                You haven't solved any exams yet.
+                              </h2>
+                            }
+                            @if (loginedUser.exams.length !== 0) {
+                              <h2
+                                class="bg-white fs-2 fw-bold text-black p-4 rounded-3 mb-3"
+                                >
+                                Exams that you finished
+                              </h2>
+                            }
+                            <!-- Table Content -->
+                            <div class="table-content">
+                              @if (loginedUser.exams.length !== 0) {
+                                <table class="table">
+                                  <thead>
+                                    <tr>
+                                      <th class="p-3 bg-success-subtle fs-5">Exam</th>
+                                      <th class="p-3 bg-success-subtle fs-5">Progress</th>
+                                      <th class="p-3 bg-success-subtle fs-5">Score</th>
+                                      <th class="p-3 bg-success-subtle fs-5">Grade</th>
+                                      <th class="p-3 bg-success-subtle fs-5">Answers</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    @for (exam of loginedUser.exams; track exam; let i = $index) {
+                                      <tr>
+                                        <td class="p-3">{{ getExamsNames(i) }}</td>
+                                        <td class="p-3">
+                                          <span>{{ exam[getExamsNames(i)].percent }}%</span>
+                                          <div class="progress">
+                                            <div
+                                              class="progress-bar"
+                                              role="progressbar"
+                  [ngStyle]="{
+                    'background-color': getProgressColor(
+                      exam[getExamsNames(i)].percent
+                    )
+                  }"
+                                              [style.width.%]="exam[getExamsNames(i)].percent"
+                                              aria-valuemin="0"
+                                              aria-valuemax="100"
+                                            ></div>
+                                          </div>
+                                        </td>
+                                        <td class="p-3">{{ exam[getExamsNames(i)].score }}</td>
+                                        <td class="p-3">{{ exam[getExamsNames(i)].grade }}</td>
+                                        <td class="p-3">
+                                          <button
+                                            class="btn btn-success"
+                                            (click)="navigateToResult(getExamsNames(i))"
+                                            >
+                                            Answers
+                                          </button>
+                                        </td>
+                                      </tr>
+                                    }
+                                  </tbody>
+                                </table>
+                              }
+                            </div>
+                          </section>
+                        }
+                      </div>

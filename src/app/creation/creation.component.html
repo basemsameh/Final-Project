@@ -1,0 +1,316 @@
+<div class="container mb-3">
+  <form action="#">
+    <!-- Exam Name -->
+    <section class="exam-head p-5 rounded-3 bg-white shadow">
+      <div class="exam-name">
+        <div class="input-group input-group-lg">
+          <!-- Input -->
+          <input
+            type="text"
+            class="editTextInpt border-0 border-bottom form-control fs-1 shadow-none"
+            placeholder="Exam Name.."
+            [class.fw-bold]="examForm.headTools.isBold"
+            [class.fst-italic]="examForm.headTools.isItalic"
+            [class.text-decoration-underline]="examForm.headTools.isUnderline"
+            name="examName"
+            [(ngModel)]="examForm.examName"
+            (blur)="saveQuestionsData()"
+            autofocus
+          />
+        </div>
+        <!-- Tools -->
+        <div class="collapse show mt-3 no-print" id="showHideTools1">
+          <button
+            class="bolderBtn btn btn-outline-secondary w-fit"
+            [class.active]="examForm.headTools.isBold"
+            (click)="
+              makeTextBold(0);
+              activeToolsBtns(1, 0);
+              examForm.headTools.isBold = !examForm.headTools.isBold;
+              saveQuestionsData()
+            "
+          >
+            <i class="fa-solid fa-bold"></i>
+          </button>
+          <button
+            class="italicBtn btn btn-outline-secondary w-fit mx-3"
+            [class.active]="examForm.headTools.isItalic"
+            (click)="
+              makeTextItalic(0);
+              activeToolsBtns(1, 1);
+              examForm.headTools.isItalic = !examForm.headTools.isItalic;
+              saveQuestionsData()
+            "
+          >
+            <i class="fa-solid fa-italic"></i>
+          </button>
+          <button
+            class="btn underlineBtn btn-outline-secondary w-fit"
+            [class.active]="examForm.headTools.isUnderline"
+            (click)="
+              makeTextUnderline(0);
+              activeToolsBtns(1, 2);
+              examForm.headTools.isUnderline = !examForm.headTools.isUnderline;
+              saveQuestionsData()
+            "
+          >
+            <i class="fa-solid fa-underline"></i>
+          </button>
+        </div>
+      </div>
+      <!-- Description -->
+      <input
+        type="text"
+        [(ngModel)]="examForm.description"
+        name="description"
+        (blur)="saveQuestionsData()"
+        class="mt-4 border-0 border-bottom form-control shadow-none"
+        placeholder="Description.."
+      />
+      <label for="timeLimit" class="form-label mt-4 fs-3"
+        >Time Limitation (In minutes):</label
+      >
+      <input
+        type="number"
+        id="timeLimit"
+        name="timeLimit"
+        class="form-control shadow-none"
+        (blur)="saveQuestionsData()"
+        [(ngModel)]="examForm.timeLimit"
+        required
+      />
+    </section>
+    <!-- Question -->
+    @for (q of examForm.questions; track q; let i = $index) {
+    <section class="question p-5 pt-4 rounded-3 bg-white shadow mt-4">
+      <div class="d-flex justify-content-between">
+        <h4 class="text-bg-primary mb-4 p-2 px-3 rounded-3 border w-fit">
+          {{ i + 1 }}
+        </h4>
+        <button
+          class="btn btn-danger h-50 no-print"
+          title="Remove Question"
+          (click)="removeQuestions(i)"
+        >
+          <i class="fa-solid fa-trash"></i>
+        </button>
+      </div>
+      <!-- Input of question -->
+      <div class="input-question position-relative">
+        <input
+          type="text"
+          class="editTextInpt mb-3 border-0 border-bottom form-control fs-5 shadow-none"
+          [class.fw-bold]="q.properties.isBold"
+          [class.fst-italic]="q.properties.isItalic"
+          [class.text-decoration-underline]="q.properties.isUnderline"
+          (blur)="saveQuestionsData()"
+          placeholder="Question.."
+          [(ngModel)]="q.qName"
+          name="question{{ i }}"
+        />
+        @if (q.properties.isRequired) {
+        <span class="position-absolute text-danger top-0 fs-5">*</span>
+        }
+      </div>
+      <!-- Tools -->
+      <div class="collapse my-3 no-print show">
+        <button
+          class="toolsBtns bolderBtn btn btn-outline-secondary w-fit"
+          (click)="
+            makeTextBold(i + 1);
+            activeToolsBtns(i + 2, 0);
+            q.properties.isBold = !q.properties.isBold;
+            saveQuestionsData()
+          "
+          [class.active]="q.properties.isBold"
+        >
+          <i class="fa-solid fa-bold"></i>
+        </button>
+        <button
+          class="toolsBtns italicBtn btn btn-outline-secondary w-fit mx-3"
+          [class.active]="q.properties.isItalic"
+          (click)="
+            makeTextItalic(i + 1);
+            activeToolsBtns(i + 2, 1);
+            q.properties.isItalic = !q.properties.isItalic;
+            saveQuestionsData()
+          "
+        >
+          <i class="fa-solid fa-italic"></i>
+        </button>
+        <button
+          class="toolsBtns underlineBtn btn btn-outline-secondary w-fit"
+          [class.active]="q.properties.isUnderline"
+          (click)="
+            activeToolsBtns(i + 2, 2);
+            makeTextUnderline(i + 1);
+            q.properties.isUnderline = !q.properties.isUnderline;
+            saveQuestionsData()
+          "
+        >
+          <i class="fa-solid fa-underline"></i>
+        </button>
+      </div>
+      <!-- Select and required -->
+      <div
+        class="select-required ms-auto mb-3 row no-print align-items-center justify-content-end"
+      >
+        <div
+          class="reqPlaceholder ms-md-auto shadow position-relative rounded-3"
+          [class.bg-primary-subtle]="q.properties.isRequired"
+          [class.bg-secondary-subtle]="!q.properties.isRequired"
+          (click)="
+            q.properties.isRequired = !q.properties.isRequired;
+            saveQuestionsData()
+          "
+        >
+          <!-- Text -->
+          <span class="position-absolute top-50 translate-middle-y fw-bold"
+            >Required</span
+          >
+          <span
+            class="position-absolute rounded-circle top-50 translate-middle-y"
+            [class.bg-primary]="q.properties.isRequired"
+            [class.start-0]="q.properties.isRequired"
+            [class.bg-white]="!q.properties.isRequired"
+            [class.end-0]="!q.properties.isRequired"
+          ></span>
+        </div>
+        <select
+          name="questionType{{ i }}"
+          class="form-select ms-auto w-50"
+          [(ngModel)]="q.inputType"
+          (change)="saveQuestionsData()"
+        >
+          <option value="radio" [selected]="q.inputType === 'radio'">
+            Multiple Options
+          </option>
+          <option value="checkbox" [selected]="q.inputType === 'checkbox'">
+            Checkboxes
+          </option>
+          <option value="text" [selected]="q.inputType === 'text'">
+            Short Answer
+          </option>
+          <option value="textarea" [selected]="q.inputType === 'textarea'">
+            Long Answer
+          </option>
+        </select>
+      </div>
+      <!-- Long Answer -->
+      @if (q.inputType === 'textarea') {
+      <textarea
+        name="long-answer"
+        rows="5"
+        placeholder="Long answer text"
+        class="form-control shadow-none"
+        minlength="10"
+        [(ngModel)]="examForm.modelAnswer[i].answers[0]"
+        (ngModelChange)="saveQuestionsData()"
+      ></textarea>
+      }
+      <!-- Short Answer -->
+      @if (q.inputType === 'text') {
+      <input
+        type="text"
+        name="short-answer"
+        placeholder="Short Answer.."
+        class="form-control shadow-none"
+        [(ngModel)]="examForm.modelAnswer[i].answers[0]"
+        (ngModelChange)="saveQuestionsData()"
+      />
+      }
+      <!-- Answers Added -->
+      @if ( examForm.questions[i].inputType !== 'textarea' &&
+      examForm.questions[i].inputType !== 'text' ) {
+      <div class="answers-added">
+        @for ( answer of examForm.questions[i].answers; track $index; let index
+        = $index) {
+        <div class="input-group mt-3">
+          <div class="input-group-text">
+            <input
+              class="form-check-input mt-0 take-answer"
+              [name]="q.qName"
+              [type]="q.inputType"
+              [value]="answer"
+              [checked]="examForm.modelAnswer[i].answers.includes(answer)"
+              (click)="checkInputType(q.inputType, i, index)"
+            />
+          </div>
+          <input
+            type="text"
+            class="form-control shadow-none changeValue"
+            name="answer_{{ i }}_{{ index }}"
+            [(ngModel)]="examForm.questions[i].answers[index]"
+            (ngModelChange)="saveQuestionsData()"
+          />
+          <button
+            class="btn btn-outline-danger no-print"
+            title="Remove Answer"
+            (click)="removeAnswers(i, index)"
+          >
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+        }
+      </div>
+      } @if (q.inputType !== 'text' && q.inputType !== 'textarea') {
+      <button class="btn btn-secondary mt-4 no-print" (click)="addAnswers(i)">
+        Add Answer
+      </button>
+      }
+    </section>
+    }
+    <div class="btns mx-auto my-4 w-fit no-print">
+      <button
+        class="sendExamBtn border btn btn-warning fw-bold"
+        data-bs-toggle="modal"
+        data-bs-target="#exampleModal"
+        (click)="sendExam()"
+      >
+        Publish Exam
+      </button>
+      <button class="btn btn-primary mx-3" (click)="addQuestions()">
+        Add Question
+      </button>
+    </div>
+    <!-- Modal -->
+    <div
+      class="modal fade"
+      id="exampleModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header border-0">
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+              (click)="reloadPage()"
+            ></button>
+          </div>
+          <div
+            class="modal-body text-success text-center"
+            style="font-size: 80px"
+          >
+            <i class="fa-regular fa-circle-check"></i>
+            <h3 class="text-black">Exam sended correctly!</h3>
+          </div>
+          <div class="modal-footer mx-auto">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+              (click)="reloadPage()"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

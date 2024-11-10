@@ -1,0 +1,7 @@
+.table-content {
+  overflow-x: auto;
+}
+
+table {
+  min-width: 696px;
+}

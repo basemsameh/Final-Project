@@ -1,0 +1,58 @@
+header {
+  background-image: url(../../../public/assets/images/Home-Page/bg-home.jpg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: fit-content;
+}
+
+h1 {
+  font-size: 64px;
+}
+
+h2 {
+  font-size: 45px;
+  border-left: 10px solid green !important;
+  background-color: #eee !important;
+}
+
+header .container figure img {
+  max-width: 500px !important;
+}
+
+.showCourse {
+  background-color: #fff;
+  border: 1px solid #08f;
+  color: #08f;
+}
+
+.showCourse:hover {
+  background-color: #08f;
+  color: #fff;
+}
+
+main section {
+  margin-bottom: 100px !important;
+}
+
+/* Sections */
+.counter {
+  background-image: linear-gradient(
+      to right,
+      rgba(0, 0, 0, 0.4),
+      rgba(0, 0, 0, 0.4)
+    ),
+    url(../../../public/assets/images/Home-Page/bg-counter.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+  color: #fff;
+}
+
+.counter ul li span:nth-of-type(1) {
+  font-size: 60px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.top-categories .row .content {
+  background-color: rgb(0, 136, 255, 0.1);
+}

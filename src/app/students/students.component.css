@@ -1,0 +1,13 @@
+.table-content {
+  overflow-x: scroll;
+}
+
+.table-content table {
+  min-width: 520px;
+}
+
+@media (width >= 520px) {
+  .table-content {
+    overflow-x: auto;
+  }
+}

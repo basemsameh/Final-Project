@@ -1,0 +1,215 @@
+<div class="container mb-4" style="margin-top: 100px">
+  <!-- Timer -->
+  @if (isStudentLogin && !isEnded) {
+  <section
+    style="position: fixed; right: 20px; z-index: 5"
+    class="timer bg-white shadow w-fit px-5 py-4 border-5 border-top border-warning bg-warning-subtle rounded-2"
+  >
+    <h4>
+      <span class="d-inline-block mb-3">Timer</span> <br />
+      <span class="timerMinutes">
+        {{
+          examForm.timeLimit < 10
+            ? "0" + examForm.timeLimit
+            : examForm.timeLimit
+        }}</span
+      >:<span class="timerSeconds">{{
+        seconds < 10 ? "0" + seconds : seconds
+      }}</span>
+    </h4>
+  </section>
+  }
+  <form action="#">
+    <!-- Exam Name -->
+    <div class="exam-head p-5 rounded-3 bg-white shadow">
+      <div class="exam-name">
+        <div class="input-group input-group-lg">
+          <!-- Input -->
+          <input
+            type="text"
+            class="editTextInpt border-0 border-bottom form-control fs-1 shadow-none"
+            placeholder="Exam Name.."
+            readonly
+            [class.fw-bold]="examForm.headTools.isBold"
+            [class.fst-italic]="examForm.headTools.isItalic"
+            [value]="examForm.examName"
+            [class.text-decoration-underline]="examForm.headTools.isUnderline"
+            name="examName"
+          />
+        </div>
+      </div>
+      <!-- Description -->
+      @if (examForm.description !== '') {
+      <input
+        type="text"
+        readonly
+        [value]="examForm.description"
+        name="description"
+        class="mt-4 border-0 border-bottom form-control shadow-none"
+        placeholder="Description.."
+      />
+      }
+    </div>
+    <!-- Question -->
+    @for (q of examForm.questions; track q; let i = $index) {
+    <div class="question p-5 pt-4 rounded-3 bg-white shadow mt-4">
+      <h4 class="text-bg-primary mb-4 p-2 px-3 rounded-3 border w-fit">
+        {{ i + 1 }}
+      </h4>
+      <!-- Input of question -->
+      <div class="input-question position-relative">
+        <input
+          type="text"
+          class="editTextInpt mb-3 border-0 border-bottom form-control fs-5 shadow-none"
+          [value]="q.qName"
+          readonly
+          [class.fw-bold]="q.properties.isBold"
+          [class.fst-italic]="q.properties.isItalic"
+          [class.text-decoration-underline]="q.properties.isUnderline"
+          placeholder="Question.."
+          name="question{{ i + 1 }}"
+        />
+        @if (q.properties.isRequired) {
+        <span class="position-absolute text-danger top-0 fs-5">*</span>
+        }
+      </div>
+      <!-- Long Answer -->
+      @if (examForm.questions[i].inputType === 'textarea') {
+      <textarea
+        name="long-answer"
+        rows="5"
+        placeholder="Long answer text"
+        class="form-control shadow-none"
+        minlength="10"
+        [required]="examForm.questions[i].properties.isRequired"
+        [(ngModel)]="studentAnswers.allAnswers[i].answers[0]"
+        [readonly]="isEnded"
+        (ngModelChange)="saveStudentAns()"
+      ></textarea>
+      }
+      <!-- Short Answer -->
+      @if (examForm.questions[i].inputType === 'text') {
+      <input
+        type="text"
+        name="short-answer"
+        placeholder="Short Answer.."
+        class="form-control shadow-none"
+        [required]="examForm.questions[i].properties.isRequired"
+        [readonly]="isEnded"
+        [(ngModel)]="studentAnswers.allAnswers[i].answers[0]"
+        (ngModelChange)="saveStudentAns()"
+      />
+      }
+      <!-- Correct Answer -->
+      @if ( (examForm.questions[i].inputType === 'text' && isEnded) ||
+      (examForm.questions[i].inputType === 'textarea' && isEnded) ) {
+      <div>
+        <label for="" class="form-label fs-5 mt-3 text-success"
+          >Correct Answer:</label
+        >
+        <input
+          type="text"
+          [value]="examModelAnswer[i].answers"
+          class="form-control shadow-none border-success"
+          readonly
+        />
+      </div>
+      }
+      <!-- Answers Added -->
+      @if ( examForm.questions[i].inputType !== 'textarea' &&
+      examForm.questions[i].inputType !== 'text' ) {
+      <div class="answers-added">
+        @for (answer of examForm.questions[i].answers; track $index) {
+        <div class="input-group mt-3 d-flex align-items-center">
+          <div class="input-group-text">
+            <input
+              class="form-check-input mt-0"
+              id="q{{ i }}ans{{ $index }}"
+              [name]="q.qName"
+              [type]="q.inputType"
+              [value]="answer"
+              [readOnly]="isEnded"
+              [required]="examForm.questions[i].properties.isRequired"
+              [checked]="studentAnswers.allAnswers[i].answers.includes(answer)"
+              (click)="checkInputType(q.inputType, i, $index)"
+              [disabled]="isEnded"
+            />
+          </div>
+          <label
+            for="q{{ i }}ans{{ $index }}"
+            class="form-label px-5 pb-1 border"
+            >{{ answer }}</label
+          >
+        </div>
+        }
+        <!-- Correct Answer -->
+        @if ( (examForm.questions[i].inputType === 'radio' && isEnded) ||
+        (examForm.questions[i].inputType === 'checkbox' && isEnded) ) {
+        <div>
+          <label for="" class="form-label fs-5 mt-3 text-success"
+            >Correct Answer:</label
+          >
+          <input
+            type="text"
+            [value]="examModelAnswer[i].answers"
+            class="form-control shadow-none border-success"
+            readonly
+          />
+        </div>
+        }
+      </div>
+      }
+    </div>
+    }
+  </form>
+  <!-- End Exam Button -->
+  @if (isStudentLogin && !isEnded) {
+  <button
+    style="font-weight: 600"
+    class="btn btn-warning px-4 py-2 my-3"
+    (click)="endExam()"
+  >
+    End Exam
+  </button>
+  }
+  <!-- Go to exams button -->
+  @if (!isStudentLogin) {
+  <button
+    style="font-weight: 600; height: 45px"
+    class="btn btn-primary no-print px-4 py-2 my-3"
+    (click)="removeAnswers(); navigateToExams()"
+  >
+    Go to exams
+  </button>
+  }
+  <!-- Return to responses button -->
+  @if (!isStudentLogin) {
+  <button
+    style="font-weight: 600; height: 45px"
+    class="btn btn-secondary no-print px-4 py-2 my-3 ms-3"
+    (click)="removeAnswers(); navigateToResponses(examForm.examName)"
+  >
+    Return to responses
+  </button>
+  }
+  <!-- Result Button -->
+  @if (isStudentLogin && isEnded) {
+  <button
+    style="font-weight: 600; height: 45px"
+    class="btn btn-secondary no-print px-4 py-2 my-3"
+    (click)="navigateToDiscussion()"
+  >
+    Discussion
+  </button>
+  }
+  <!-- Result Button -->
+  @if (isStudentLogin && isEnded) {
+  <button
+    style="font-weight: 600; height: 45px"
+    class="btn btn-info ms-3 no-print px-4 py-2 my-3"
+    (click)="navigateToResult(examForm.examName)"
+  >
+    Result
+  </button>
+  }
+</div>

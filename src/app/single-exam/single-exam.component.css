@@ -1,0 +1,15 @@
+input[type="text"]:focus {
+  z-index: 1;
+}
+
+.container form {
+  margin-top: 100px;
+}
+
+.exam-head {
+  border-top: 15px solid var(--blue);
+}
+
+.question {
+  border-left: 10px solid var(--blue);
+}

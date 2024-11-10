@@ -1,0 +1,42 @@
+input[type="text"]:focus {
+  border: 1px solid var(--blue) !important;
+  z-index: 0;
+}
+
+.container form {
+  margin-top: 100px;
+}
+
+.exam-head {
+  border-top: 15px solid var(--blue);
+}
+
+.question {
+  border-left: 10px solid var(--blue);
+}
+
+.reqPlaceholder {
+  width: 45px;
+  height: 13px;
+  cursor: pointer;
+}
+
+.reqPlaceholder span:nth-of-type(1) {
+  right: -75px;
+}
+
+.reqPlaceholder span:nth-of-type(2) {
+  height: 20px;
+  width: 20px;
+}
+
+.sendExamBtn:hover {
+  background-color: transparent !important;
+  border: 1px solid black !important;
+}
+
+@media (width >= 768px) {
+  .select-required {
+    max-width: 600px !important;
+  }
+}
