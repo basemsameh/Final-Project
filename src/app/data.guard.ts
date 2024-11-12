@@ -7,7 +7,7 @@ export const dataGuard: CanActivateFn = (route, state) => {
   let dataService = inject(DataService);
   let isLoginedBefore;
   dataService.isLoginedBefore.subscribe((x) => {
-    isLoginedBefore = x;  
+    isLoginedBefore = x;
   });
 
   if (isLoginedBefore) {

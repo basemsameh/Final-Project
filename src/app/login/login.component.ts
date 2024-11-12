@@ -5,13 +5,13 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { Router, RouterOutlet } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { DataService } from '../data.service';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [RouterOutlet, ReactiveFormsModule],
+  imports: [RouterModule, ReactiveFormsModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
 })
@@ -66,7 +66,9 @@ export class LoginComponent {
     return this.isLoginedBefore;
   }
 
+  // Current logined user
   loginedUser: any;
+  // All users
   users: any = this.getUsersData();
   getUsersData() {
     let storedData = localStorage.getItem('users');
@@ -84,13 +86,12 @@ export class LoginComponent {
     return this.users;
   }
 
-  // Return valid email and password or not. Once for students & once
-  // for instructors
+  // Return valid email and password or not. Once for students & once for instructors
   loopOnData(
     array: any[],
     emailInpt: HTMLInputElement,
     passInput: HTMLInputElement
-  ) {
+  ): boolean {
     let validEmail = false;
     let validPassword = false;
     if (array.length !== 0) {
@@ -104,6 +105,9 @@ export class LoginComponent {
               'loginedUser',
               JSON.stringify(this.loginedUser)
             );
+            this._DataService.profileImageUrl.next(
+              this.loginedUser.profileImageUrl
+            );
             break;
           }
         }
@@ -114,6 +118,7 @@ export class LoginComponent {
     }
   }
 
+  // Show wrong email or password message
   showWrongEmailOrPass = false;
   checkLoginData() {
     let emailInpt = document.querySelector(
@@ -156,10 +161,6 @@ export class LoginComponent {
           JSON.stringify(this.isStudentLogin)
         );
         this._DataService.isStudentLogin.next(false);
-
-        this._DataService.profileImageUrl.next(
-          this.loginedUser.profileImageUrl
-        );
       }
       this.navigateToExams();
     } else {

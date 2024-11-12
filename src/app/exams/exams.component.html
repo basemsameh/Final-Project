@@ -9,17 +9,6 @@
   <h2 class="pageTitle text-center">No exams found!</h2>
   } @else {
   <div class="showData text-center">
-    <!-- <div class="input-group mb-5 w-75 mx-auto pt-4">
-      <input
-        #searchExam
-        type="search"
-        name="searchExam"
-        class="form-control"
-        placeholder="Search.."
-        (keyup)="text = searchExam.value"
-        />
-        <button class="btn btn-primary" type="button">Search</button>
-      </div> -->
     <!-- Nav Taps -->
     @if (isStudentLogin) {
     <ul class="nav nav-tabs mx-auto w-fit bg-white" id="myTab" role="tablist">
@@ -77,7 +66,7 @@
         tabindex="0"
       >
         <div class="row">
-          @for (exam of examsSended; track exam; let i = $index) {
+          @for (exam of examsSended; track $index; let i = $index) {
           <div
             class="col-12 col-md-6 col-lg-4 p-3 mt-4"
             [class.changeSize]="!isStudentLogin"
@@ -86,10 +75,7 @@
               class="content shadow bg-white p-4 position-relative rounded-3"
               [class.solved]="solved(i)"
             >
-              <h3
-                class="mb-3 fw-bold fst-italic"
-                [innerHTML]="handleText(exam.examName)"
-              ></h3>
+              <h3 class="mb-3 fw-bold fst-italic">{{ exam.examName }}</h3>
               <p class="border-bottom pb-2 text-black-50 mb-2">
                 {{ exam.description ? exam.description : "No description" }}
               </p>
@@ -244,10 +230,7 @@
           (solved(i)) {
           <div class="col-12 col-md-6 col-lg-4 p-3 mt-4">
             <div class="content solved shadow bg-white p-4 rounded-3">
-              <h3
-                class="mb-3 fw-bold fst-italic"
-                [innerHTML]="handleText(exam.examName)"
-              ></h3>
+              <h3 class="mb-3 fw-bold fst-italic">{{ exam.examName }}</h3>
               <p class="border-bottom pb-2 text-black-50 mb-2">
                 {{ exam.description ? exam.description : "No description" }}
               </p>
@@ -295,10 +278,7 @@
           (!solved(i)) {
           <div class="col-12 col-md-6 col-lg-4 p-3 mt-4">
             <div class="content shadow bg-white p-4 rounded-3">
-              <h3
-                class="mb-3 fw-bold fst-italic"
-                [innerHTML]="handleText(exam.examName)"
-              ></h3>
+              <h3 class="mb-3 fw-bold fst-italic">{{ exam.examName }}</h3>
               <p class="border-bottom pb-2 text-black-50 mb-2">
                 {{ exam.description ? exam.description : "No description" }}
               </p>
@@ -336,11 +316,3 @@
   </div>
   }
 </div>
-<!--  
-We value your privacy
-
-We use cookies to enhance your browsing experience, serve personalized ads or content,
-and analyze our traffic. By clicking "Accept All", you consent to our use of cookies.
-
-Accept All -- Reject All
--->

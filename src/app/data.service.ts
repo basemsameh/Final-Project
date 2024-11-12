@@ -40,12 +40,12 @@ export class DataService {
   // Discusition
   private db: MyDatabase;
 
-  constructor(private http: HttpClient) {
+  constructor() {
     afterNextRender(() => {
       const storeLogin = localStorage.getItem('isLoginedBefore');
       if (storeLogin) {
         try {
-          // Instead of overwriting the BehaviorSubject, use .next() to update its value
+          //  use .next() to update its value
           this.isLoginedBefore.next(JSON.parse(storeLogin));
         } catch (err) {
           console.error(err);
@@ -129,6 +129,7 @@ export class DataService {
     );
   }
 
+  // Update message(like image or name) when change image or account information
   updateMessage(
     userId: number,
     newImageUrl: any,
@@ -155,119 +156,4 @@ export class DataService {
   // Student name for get its answers to instructor
   stdIdNumber: BehaviorSubject<any> = new BehaviorSubject(0);
   instructorShowAns: BehaviorSubject<any> = new BehaviorSubject(false);
-
-  getCourses(): Observable<any> {
-    return this.http.get('https://fakestoreapi.com/products');
-  }
-
-  courses: any[] = [
-    {
-      id: 1,
-      courseName: 'Frontend With Angular v18',
-      description:
-        'Master Angular for building scalable web applications. This course covers the latest features in Angular 18, including advanced component design and performance optimization.',
-      price: 120,
-      rate: 4.8,
-      favourite: false,
-      category: 'Development',
-      level: 'Intermediate',
-      duration: '40 hours',
-      instructor: 'Basem Sameh',
-      prerequisites: ['HTML', 'CSS', 'JavaScript basics'],
-      enrollmentCount: 3000,
-      ratingCount: 520, // number of people who rated
-      releaseDate: '2023-01-15', // release date of the course
-      language: 'English', // language of the course
-    },
-    {
-      id: 2,
-      courseName: 'Frontend With ReactJS v18',
-      description:
-        'Learn React from the basics to advanced concepts. Build interactive UIs and dynamic web applications using the latest React v18 features.',
-      price: 110,
-      rate: 4.7,
-      favourite: false,
-      category: 'Development',
-      level: 'Intermediate',
-      duration: '35 hours',
-      instructor: 'Mohamed Mojib',
-      prerequisites: ['HTML', 'CSS', 'JavaScript basics'],
-      enrollmentCount: 2700,
-      ratingCount: 480,
-      releaseDate: '2023-03-20',
-      language: 'English',
-    },
-    {
-      id: 3,
-      courseName: 'Digital Marketing',
-      description:
-        'Gain expertise in digital marketing strategies, SEO, social media marketing, and email marketing to boost online presence and engagement.',
-      price: 90,
-      rate: 4.6,
-      favourite: false,
-      category: 'Business',
-      level: 'Beginner',
-      duration: '25 hours',
-      instructor: 'Qassam Atef',
-      prerequisites: ['None'],
-      enrollmentCount: 2000,
-      ratingCount: 330,
-      releaseDate: '2022-10-05',
-      language: 'English',
-    },
-    {
-      id: 4,
-      courseName: 'Bootstrap v5',
-      description:
-        'An introduction to Bootstrap, the popular CSS framework, for creating responsive and mobile-first web applications quickly.',
-      price: 40,
-      rate: 4.5,
-      favourite: false,
-      category: 'Technology',
-      level: 'Beginner',
-      duration: '10 hours',
-      instructor: 'Karim Ayman',
-      prerequisites: ['HTML', 'CSS'],
-      enrollmentCount: 1500,
-      ratingCount: 210,
-      releaseDate: '2022-08-18',
-      language: 'English',
-    },
-    {
-      id: 5,
-      courseName: 'Python for Beginners',
-      description:
-        'Learn Python programming from scratch. This beginner-friendly course covers basic syntax, data structures, and programming fundamentals.',
-      price: 75,
-      rate: 4.9,
-      favourite: false,
-      category: 'Programming',
-      level: 'Beginner',
-      duration: '20 hours',
-      instructor: 'Megan Taylor',
-      prerequisites: ['None'],
-      enrollmentCount: 4500,
-      ratingCount: 610,
-      releaseDate: '2022-12-10',
-      language: 'English',
-    },
-    {
-      id: 6,
-      courseName: 'Intro To Data Science',
-      description:
-        'Explore the basics of data science, including data analysis, statistics, and machine learning techniques.',
-      price: 130,
-      rate: 4.8,
-      favourite: false,
-      category: 'Data Science',
-      level: 'Intermediate',
-      duration: '45 hours',
-      instructor: 'Michael Brown',
-      prerequisites: ['Python basics', 'Statistics basics'],
-      enrollmentCount: 3200,
-      ratingCount: 580,
-      releaseDate: '2023-02-01',
-      language: 'English',
-    },
-  ];
 }

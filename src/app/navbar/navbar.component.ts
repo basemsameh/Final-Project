@@ -1,10 +1,4 @@
-import {
-  afterNextRender,
-  afterRender,
-  ChangeDetectorRef,
-  Component,
-  OnInit,
-} from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { DataService } from '../data.service';
 import { CommonModule } from '@angular/common';

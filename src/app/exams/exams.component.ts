@@ -1,13 +1,12 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RouterLink, RouterOutlet, Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { DataService } from '../data.service';
-import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-exams',
   standalone: true,
-  imports: [RouterOutlet, FormsModule, RouterLink],
+  imports: [RouterModule, FormsModule],
   templateUrl: './exams.component.html',
   styleUrl: './exams.component.css',
 })
@@ -26,14 +25,13 @@ export class ExamsComponent implements OnInit {
   examsSended: any;
   getDataToExamForm() {
     let storedData = localStorage.getItem('examsSended');
-    if (storedData !== null && JSON.parse(storedData).length > 0) {
+    if (storedData && JSON.parse(storedData).length > 0) {
       this.examsSended = JSON.parse(storedData);
       this.notFoundExams = false; // Only set to false if exams exist
     } else {
       this.examsSended = [];
       this.notFoundExams = true; // Set to true if no exams are found
     }
-    return this.examsSended;
   }
 
   ngOnInit(): void {
@@ -41,8 +39,6 @@ export class ExamsComponent implements OnInit {
       this.isStudentLogin = x;
       this.cdRef.detectChanges(); // Manually trigger change detection
     });
-
-    this.examsSended = this.getDataToExamForm();
 
     let storedData = localStorage.getItem('loginedUser');
     storedData ? (this.loginedUser = JSON.parse(storedData)) : [];
@@ -53,6 +49,7 @@ export class ExamsComponent implements OnInit {
     this.getDataToExamForm();
   }
 
+  // Get array of indexes these are solved before (For Student)
   checkSolvedBefore(): any[] {
     let arrIndexs = [];
     if (this.loginedUser?.exams?.length !== 0) {
@@ -69,7 +66,8 @@ export class ExamsComponent implements OnInit {
     return arrIndexs;
   }
 
-  solved(index: number) {
+  // Get index from user and check if it in the array of indexes that solved (For Student)
+  solved(index: number): boolean {
     const isSolvedBefore = this.checkSolvedBefore();
     if (isSolvedBefore) {
       return isSolvedBefore.includes(index) ? true : false;
@@ -107,7 +105,7 @@ export class ExamsComponent implements OnInit {
       }
     }
 
-    // Notifications
+    // Send Notification
     // [1] Students
     for (let i = 0; i < students.length; i++) {
       students[i].notifications.unshift({
@@ -126,19 +124,13 @@ export class ExamsComponent implements OnInit {
       });
     }
 
+    // Update data in localStorage (users - examsSended)
     localStorage.setItem('users', JSON.stringify(this.users));
     this.examsSended.splice(index, 1);
     this.saveData();
   }
 
-  text: string = '';
-  handleText(t: string) {
-    if (this.text.length !== 0) {
-      t = t.replace(new RegExp(this.text, 'gi'), `<mark>${this.text}</mark>`);
-    }
-    return t;
-  }
-
+  // Navigate to specific exam (instructor shows a specific student answers)
   getNavigation(exam: string) {
     this._DataService.instructorShowAns.next(false);
     this._Router.navigate(['exams', exam]);
@@ -148,7 +140,8 @@ export class ExamsComponent implements OnInit {
     localStorage.setItem('examForm', JSON.stringify(this.examsSended[index]));
     let examName = this.examsSended[index].examName;
 
-    // Notifications
+    // Send Notification
+    // [1] Students
     let students = this.users[0].students;
     for (let i = 0; i < students.length; i++) {
       students[i].notifications.unshift({
@@ -158,7 +151,7 @@ export class ExamsComponent implements OnInit {
       });
     }
 
-    // Instructors
+    // [2] Instructors
     let instructors = this.users[0].instructors;
     for (let i = 0; i < instructors.length; i++) {
       instructors[i].notifications.unshift({
@@ -167,12 +160,14 @@ export class ExamsComponent implements OnInit {
       });
     }
 
+    // Update data in localStorage (users - examsSended)
     localStorage.setItem('users', JSON.stringify(this.users));
     this.examsSended.splice(index, 1);
     this.saveData();
     this._Router.navigate(['creation']);
   }
 
+  // Instructor will see responses of a specific exam
   navigateToResponses(examName: string) {
     this._Router.navigate(['responses', examName]);
   }

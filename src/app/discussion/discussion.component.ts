@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../data.service';
 import { FormsModule } from '@angular/forms';
-
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-discussion',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, CommonModule],
   templateUrl: './discussion.component.html',
   styleUrl: './discussion.component.css',
 })
@@ -19,12 +19,13 @@ export class DiscussionComponent implements OnInit {
 
   constructor(private _DataService: DataService) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     // Fetch messages from the service
     this._DataService.getMessages().subscribe((msgs) => {
       this.messages = msgs;
     });
 
+    // Get loginedUser data from localStorage
     let storedData = localStorage.getItem('loginedUser');
     storedData ? (this.loginedUser = JSON.parse(storedData)) : [];
 
@@ -69,7 +70,7 @@ export class DiscussionComponent implements OnInit {
     location.reload();
   }
 
-  // ===================
+  // This function for put classes in HTML to get styles (anotherUser - currentUser)
   checkName(index: number): boolean {
     let currentId = this.loginedUser.id;
     if (currentId === this.messages[index].id) {
@@ -79,6 +80,7 @@ export class DiscussionComponent implements OnInit {
     }
   }
 
+  // Scroll to bottom in discussion
   scrollBottom() {
     window.scrollTo({
       top: document.body.scrollHeight,
@@ -86,6 +88,7 @@ export class DiscussionComponent implements OnInit {
     });
   }
 
+  // This for hide or display button that scrolled to bottom in discussion
   checkScrolled() {
     const scrollTop = window.scrollY;
     const clientHeight = window.innerHeight;
@@ -95,20 +98,5 @@ export class DiscussionComponent implements OnInit {
     } else {
       this.scrolled = true; // Show button when not at the bottom
     }
-  }
-
-  getLocalStorageSize(): number {
-    let total = 0;
-
-    for (let key in localStorage) {
-      if (localStorage.hasOwnProperty(key)) {
-        let value = localStorage.getItem(key);
-        total += key.length + (value ? value.length : 0);
-      }
-    }
-
-    // Convert from characters to bytes (since localStorage stores strings in UTF-16)
-    console.log((total * 2) / (1024 * 1024));
-    return total * 2; // UTF-16 uses 2 bytes per character
   }
 }

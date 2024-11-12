@@ -1,24 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import {
-  ActivatedRoute,
-  Router,
-  RouterLink,
-  RouterOutlet,
-} from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { DataService } from '../data.service';
 
 @Component({
   selector: 'app-single-exam',
   standalone: true,
-  imports: [RouterOutlet, FormsModule, RouterLink],
+  imports: [RouterModule, FormsModule],
   templateUrl: './single-exam.component.html',
   styleUrls: ['./single-exam.component.css'],
 })
 export class SingleExamComponent implements OnInit {
   examsSended: any;
   examForm: any;
-  users: any;
+  users!: any[];
   isStudentLogin: any;
   loginedUser: any;
   examIndex: any;
@@ -283,8 +278,7 @@ export class SingleExamComponent implements OnInit {
 
     let examName = this.examsSended[this.examIndex].examName;
 
-    // Notifications
-    // Instructors
+    // Send Notification for Instructors only
     let studentName = `${this.loginedUser.fname} ${this.loginedUser.lname}`;
     let instructors = this.users[0].instructors;
     for (let i = 0; i < instructors.length; i++) {

@@ -15,15 +15,9 @@ import { dataGuard } from './data.guard';
 import { instructorsGuard } from './instructors.guard';
 import { ResponsesComponent } from './responses/responses.component';
 import { NotificationsComponent } from './notifications/notifications.component';
-import { HomeComponent } from './home/home.component';
-import { CoursesComponent } from './courses/courses.component';
-import { SingleCourseComponent } from './single-course/single-course.component';
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'home', pathMatch: 'full' },
-  { path: 'home', component: HomeComponent },
-  { path: 'courses', component: CoursesComponent },
-  { path: 'courses/:id', component: SingleCourseComponent },
+  { path: '', redirectTo: 'discussion', pathMatch: 'full' },
   {
     path: 'discussion',
     component: DiscussionComponent,
